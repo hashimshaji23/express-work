@@ -69,7 +69,7 @@ export const updateEmployee = async (req, res, next) => {
             console.log("Id is required")
         }
         const updateData = {}
-        if (id) updateData.Id = id
+        if (Id) updateData.Id = Id
         if (name) updateData.name = name
         if (Rol) updateData.Rol = Rol
         if (Gender) updateData.Gender = Gender
