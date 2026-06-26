@@ -19,6 +19,7 @@ export const Register = async (req, res, next)=>{
         }
         const saltRounds = 10
         const salt = bcrypt.genSaltSync(saltRounds)
+        
         const hash = bcrypt.hashSync(password, salt)
 
         const newUser = new user({name, email, phone, password: hash})

@@ -1,7 +1,7 @@
 import mongoose from "mongoose";
 
 const employeeSchema = new mongoose.Schema({
-    Id:{
+    empcod:{
         type: Number,
         require: true
     },

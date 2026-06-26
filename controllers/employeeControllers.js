@@ -3,13 +3,13 @@ import Employee from "../model/employee.js"
 
 export const addEmployee = async (req, res, next) => {
     try {
-        const { Id, name, Rol, Gender } = req.body
+        const { empcod, name, Rol, Gender } = req.body
 
         if (!name) {
             console.log("name is required");
         } else {
             const newEmployee = new Employee({
-                Id, name, Rol, Gender
+                empcod, name, Rol, Gender
             })
             const saveUser = await newEmployee.save()
             res.status(200).json({
@@ -63,13 +63,13 @@ export const singleEmployee = async (req, res, next) => {
 
 export const updateEmployee = async (req, res, next) => {
     try {
-        const { id, name, Rol, Gender } = req.body
+        const { empcod, name, Rol, Gender } = req.body
 
         if (!id) {
             console.log("Id is required")
         }
         const updateData = {}
-        if (Id) updateData.Id = Id
+        if (empcod) updateData.empcod = empcod
         if (name) updateData.name = name
         if (Rol) updateData.Rol = Rol
         if (Gender) updateData.Gender = Gender
