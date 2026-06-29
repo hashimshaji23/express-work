@@ -3,13 +3,13 @@ import Employee from "../model/employee.js"
 
 export const addEmployee = async (req, res, next) => {
     try {
-        const { empcod, name, Rol, Gender } = req.body
+        const { empcod, name, jobRole, salary, email } = req.body
 
         if (!name) {
             console.log("name is required");
         } else {
             const newEmployee = new Employee({
-                empcod, name, Rol, Gender
+                empcod, name, jobRole, salary, email
             })
             const saveUser = await newEmployee.save()
             res.status(200).json({
@@ -25,12 +25,16 @@ export const addEmployee = async (req, res, next) => {
 
 export const getEmployee = async (req, res, next) => {
     try {
-        const listEmployee = await Employee.find();
-        res.status(200).json({
-            status: true,
-            message: "successfull",
-            data: listEmployee
-        })
+        const { name, minSalary, maxSalary } = req.query;
+        const filter = {};
+
+        if(minSalary || maxSalary) {
+            filter.salary = {};
+            if(minSalary) filter.salary.$gte = Number(minSalary);
+            if(maxSalary) filter.salary.$lte = Number(maxSalary);
+        }
+
+        const listEmployee = await Employee.find(filter).sort({ craetedAt: -1 });
 
     } catch (err) {
         console.log(err)
@@ -63,7 +67,7 @@ export const singleEmployee = async (req, res, next) => {
 
 export const updateEmployee = async (req, res, next) => {
     try {
-        const { empcod, name, Rol, Gender } = req.body
+        const { empcod, name, email, jobRol, salary } = req.body
 
         if (!id) {
             console.log("Id is required")
@@ -71,8 +75,9 @@ export const updateEmployee = async (req, res, next) => {
         const updateData = {}
         if (empcod) updateData.empcod = empcod
         if (name) updateData.name = name
-        if (Rol) updateData.Rol = Rol
-        if (Gender) updateData.Gender = Gender
+        if (email) updateData.email = email
+        if (jobRol) updateData.Rol = Rol
+        if (salary) updateData.Gender = Gender
 
         const updatedData = await Employee.findByIdAndUpdate(id, updateData, {
             new: true,

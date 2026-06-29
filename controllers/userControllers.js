@@ -7,7 +7,7 @@ import bcrypt from 'bcrypt'
 export const Register = async (req, res, next)=>{
 
     try{
-        const {name, email, phone, password} = req.body
+        const {name, email, phone, password, role} = req.body
         console.log(req.body)
 
         if(!email){

@@ -9,13 +9,17 @@ const employeeSchema = new mongoose.Schema({
         type: String,
         require: true
     },
-    Rol:{
+    email:{
         type: String,
         require: true
     },
-    Gender:{
+    jobRole:{
         type: String,
-        require:true
+        require: true
+    },
+    salary:{
+        type: Number,
+        require: true
     }
 }, {timestamps: true})
 
